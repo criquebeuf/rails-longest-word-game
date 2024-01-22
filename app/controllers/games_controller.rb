@@ -18,6 +18,16 @@ class GamesController < ApplicationController
     @letters = included?(@word, @grid)
     @english = english_word?(@word)
     @message = message(@word, @grid)
+    @score = @word.length
+    @final_score = compute_score(@score)
+  end
+
+  def compute_score(score)
+    if session[:score]
+      session[:score] += score
+    else
+      session[:score] = score
+    end
   end
 
   def included?(word, grid)
